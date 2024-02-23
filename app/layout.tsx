@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import logo from "./assets/logo.png";
+import Image from "next/image";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +18,34 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <div className="border-b border-solid border-black w-full box-border h-16 flex items-center justify-between py-3 px-10 text-lg text-gray font-public-sans border-b-1 border-gainsboro bg-white">
+          <div className="h-full flex items-center justify-start">
+            <div className="h-full flex items-center justify-start space-x-2">
+              <Image
+                className="w-10 rounded-full"
+                priority
+                src={logo}
+                alt="logo"
+              />
+              <span className=" font-bold text-black">GovBot</span>
+            </div>
+          </div>
+          <div className="flex items-center justify-end space-x-10 text-sm">
+            <span className="font-bold text-black">Home</span>
+            <span className="font-bold text-black">Explore</span>
+            <span className="font-bold text-black">Learn</span>
+            <span className="font-bold text-black">Help</span>
+            <button className="rounded-lg  bg-blue-500 text-black py-2 px-4 font-bold">
+              Login
+            </button>
+            <button className="rounded-xl bg-slate-500 text-white py-2 px-4 font-bold">
+              Sign up
+            </button>
+          </div>
+        </div>
+        {children}
+      </body>
     </html>
   );
 }
