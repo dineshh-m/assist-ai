@@ -31,15 +31,15 @@ export default function RootLayout({
               <span className=" font-bold text-black">GovBot</span>
             </div>
           </div>
-          <div className="flex items-center justify-end space-x-10 text-sm">
-            <span className="font-bold text-black">Home</span>
-            <span className="font-bold text-black">Explore</span>
-            <span className="font-bold text-black">Learn</span>
-            <span className="font-bold text-black">Help</span>
-            <button className="rounded-lg  bg-blue-500 text-black py-2 px-4 font-bold">
+          <div className="flex items-center justify-end space-x-10 ">
+            <span className="font-bold text-black text-base">Home</span>
+            <span className="font-bold text-black text-base">Explore</span>
+            <span className="font-bold text-black text-base">Learn</span>
+            <span className="font-bold text-black text-base">Help</span>
+            <button className="rounded-lg  bg-blue-500 text-black py-2 px-4 font-bold text-base">
               Login
             </button>
-            <button className="rounded-xl bg-slate-500 text-white py-2 px-4 font-bold">
+            <button className="rounded-xl bg-slate-500 text-white py-2 px-4 font-bold text-base">
               Sign up
             </button>
           </div>
