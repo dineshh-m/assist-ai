@@ -8,12 +8,21 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      theme: {
+        colors: {
+          purple: "#3f3cbb",
+        },
+        height: {
+          full: "200vh",
+        },
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         images: "url(./assets/main-img.png)",
         addimg: "url(./assets/addimg.png)",
+        backimg: "url(./assets/background.png)",
       },
     },
   },

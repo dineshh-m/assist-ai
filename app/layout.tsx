@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { publicSans } from "./lib/fonts";
 import logo from "./assets/logo.png";
 import Image from "next/image";
 
@@ -18,34 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <div className="border-b border-solid border-black w-full box-border h-16 flex items-center justify-between py-3 px-10 text-lg text-gray font-public-sans border-b-1 border-gainsboro bg-white">
-          <div className="h-full flex items-center justify-start">
-            <div className="h-full flex items-center justify-start space-x-2">
-              <Image
-                className="w-10 rounded-full"
-                priority
-                src={logo}
-                alt="logo"
-              />
-              <span className=" font-bold text-black">GovBot</span>
-            </div>
-          </div>
-          <div className="flex items-center justify-end space-x-10 ">
-            <span className="font-bold text-black text-base">Home</span>
-            <span className="font-bold text-black text-base">Explore</span>
-            <span className="font-bold text-black text-base">Learn</span>
-            <span className="font-bold text-black text-base">Help</span>
-            <button className="rounded-lg  bg-blue-500 text-black py-2 px-4 font-bold text-base">
-              Login
-            </button>
-            <button className="rounded-xl bg-slate-500 text-white py-2 px-4 font-bold text-base">
-              Sign up
-            </button>
-          </div>
-        </div>
-        {children}
-      </body>
+      <body className={publicSans.className}>{children}</body>
     </html>
   );
 }
