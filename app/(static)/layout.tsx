@@ -9,13 +9,14 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <div className="shadow-md w-full box-border h-16 flex items-center justify-between py-3 px-10 text-lg text-gray font-public-sans border-b-1 border-gainsboro bg-white">
+      {/* NavBar Starts */}
+      <div className="shadow-md w-full box-border h-16 inline-flex items-center justify-between py-3 px-10 text-lg text-gray font-public-sans border-b-1 border-gainsboro bg-white">
         <div className="h-full flex items-center justify-start">
           <div className="h-full flex items-center justify-start space-x-2">
             <span className=" font-bold text-black">AssistAI</span>
           </div>
         </div>
-        <div className="flex items-center justify-end space-x-10 ">
+        <div className=" inline-flex items-center justify-end space-x-10 ">
           <Link className=" text-black text-base" href="/">
             Home
           </Link>
@@ -36,6 +37,7 @@ export default function RootLayout({
           </button>
         </div>
       </div>
+      {/* NavBar Ends */}
       <div>{children}</div>
     </>
   );

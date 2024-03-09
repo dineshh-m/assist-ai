@@ -3,19 +3,19 @@ export const features = [
     featureName: "Natural Language Processing (NLP)",
     featureDescription:
       "Implement NLP capabilities for the chatbot to understand and respond to user queries in a conversational manner.",
-    background: "/nlp.jpeg",
+    background: "/nlp.jpg",
   },
   {
-    featureName: "Natural Language Processing (NLP)",
+    featureName: "Live Chat Integration:",
     featureDescription:
-      "Implement NLP capabilities for the chatbot to understand and respond to user queries in a conversational manner.",
-    background: "/nlp.jpeg",
+      " Offer the option for users to connect with live agents for complex queries.",
+    background: "/chat.jpg",
   },
   {
-    featureName: "Natural Language Processing (NLP)",
+    featureName: "User-Friendly Interface:",
     featureDescription:
-      "Implement NLP capabilities for the chatbot to understand and respond to user queries in a conversational manner.",
-    background: "/nlp.jpeg",
+      "Simple Navigation: Ensure an easy-to-use interface with straightforward menus and options.",
+    background: "/user-Interface.png",
   },
 ];
 

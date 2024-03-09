@@ -27,7 +27,7 @@ export function FeatureCard({ feature }: { feature: Feature }) {
             src={feature.background}
             height="1000"
             width="1000"
-            className="h-60 w-full object-cover rounded-xl group-hover/card:shadow-xl"
+            className="h-80 w-full object-cover rounded-xl group-hover/card:shadow-xl"
             alt="thumbnail"
           />
         </CardItem>
