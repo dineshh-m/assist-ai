@@ -1,4 +1,18 @@
 import { Auxilary, Message, MessageInfo } from "@/app/lib/definitions";
+import { sql } from "@vercel/postgres";
+
+export const user = {
+  id: "84485b73-e18d-412c-9200-8e619aa2845d",
+  user_name: "Dinesh",
+  user_email: "dineshmoorthy@assistai.com",
+  user_password: "$2b$10$9c3HJQbiRX60OzSjScFWTu9WWrKrGeVAP/Laus1XjfqLRev5rIBw.",
+}
+
+export const conversation = {
+  id: "dfa70147-b661-4e3f-8ac4-39f2bcb488d3",
+  conversation_name: "Scholarships for a University Student",
+  user_id: "84485b73-e18d-412c-9200-8e619aa2845d",
+}
 
 export const chatHistory: MessageInfo[] = [
   { id: "abc123", title: "Introduction" },
@@ -85,23 +99,31 @@ export const conversationHistory: Auxilary[] = [
   },
 ];
 
-export async function fetchChatResponse(prompt: string, messages: Message[]) {
-  const contextHistory = convertAuxilary(messages);
-  const response = await fetch("/api/chat/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ message: prompt, contextHistory: contextHistory }),
-  });
-  const data = await response.json();
-  return data;
+
+type Foo = {
+  chatHistory: Message[]
 }
 
-function convertAuxilary(messages: Message[]): Auxilary[] {
-  const auxilary: Auxilary[] = [];
-  for (const message of messages) {
-    auxilary.push(message.content);
+export async function fetchChatHistory(conversationId: string): Promise<Foo> {
+  try {
+    const response = await sql`SELECT * FROM messages WHERE conversation_id=${conversationId} ORDER BY generated_timestamp`;
+    const chatHistory = [];
+    for (const row of response.rows) {
+      const convo: Message = {
+        id: row.id,
+        content: {
+          role: row.role,
+          parts: [{
+            text: row.message
+          }]
+        },
+      };
+      chatHistory.push(convo);
+      console.log(convo);
+    }
+    return { chatHistory }
+  }catch(error) {
+    console.log(error);
+    throw new Error('Failed to fetch Chat history');
   }
-  return auxilary;
 }

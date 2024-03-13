@@ -1,20 +1,33 @@
 'use client';
 import PromptInput from "@/app/ui/prompt-input";
 import ChatList from "./chat-list";
-import { fetchChatResponse } from "@/app/lib/data";
+import { fetchChatResponse } from "@/app/lib/client-data";
 import { useEffect, useRef, useState } from "react";
 import { Message } from "../lib/definitions";
+import { fetchChatHistory } from "../lib/client-data";
+import Spinner from "./loading";
 
-export default function Chat() {
-    const [ messages, setMessages] = useState<Message[]>([]);
+export default function Chat({ conversationId }: { conversationId: string}) {
+    const [ messages, setMessages] = useState<Message[]>([]); // Storing the actual conversation
     const [ prompt, setPrompt ] = useState('');
     const [isGenerating, setIsGenerating] = useState(false); // for disabling the send button when the content is generating.
+    const [conversationID, setConversationID] = useState(conversationId);
     const chatContainerRef = useRef<HTMLDivElement>(null); 
     useEffect(() => {
         if (chatContainerRef.current) {
             chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
         }
     }, [messages]);
+
+    useEffect(() => {
+      const fetchData = async () => {
+        const chatHistory = await fetchChatHistory(conversationID);
+        setMessages(chatHistory.chatHistory);
+      };
+      if (conversationID) {
+        fetchData();
+      }
+    }, [])
 
     const handleClick = async () => {
       // Checking whether the prompt is empty
@@ -33,18 +46,22 @@ export default function Chat() {
           { id: generateUniqueId(), role: "model", message: "", content: { role: "model", parts: [{ text: ""}]}},
         ]);
         // Fetching data
-        const data = await fetchChatResponse(prompt, messages);
+        const data = await fetchChatResponse(conversationID, prompt, messages);
         // Applying the returned response to the chat
         setMessages((messages) => {
           const finalMessages = [...messages];
           const responseMessage = finalMessages[finalMessages.length - 1];
-          responseMessage.content.parts[0].text = data.text
+          responseMessage.content.parts[0].text = data.message;
           finalMessages[finalMessages.length - 1] = responseMessage;
           return [
             ...finalMessages,
           ];
         });
         setIsGenerating(false);
+        if (!conversationID) {
+          setConversationID(data.conversationId);
+          history.pushState(null, "", `/chat/${data.conversationId}`);
+        }
       }
     };
 
@@ -59,9 +76,13 @@ export default function Chat() {
     }
     return (
       <>
-        <div className="pb-[6rem] w-full h-full overflow-y-hidden">
-          <ChatList messages={messages} chatContainerRef={chatContainerRef} />
-        </div>
+        {conversationID && !messages.length ? (
+          <Spinner />
+        ) : (
+          <div className="pb-[6rem] w-full h-full overflow-y-hidden">
+            <ChatList messages={messages} chatContainerRef={chatContainerRef} />
+          </div>
+        )}
         <PromptInput
           prompt={prompt}
           isGenerating={isGenerating}
