@@ -1,8 +1,6 @@
 import { conversationHistory, fetchChatHistory } from "@/app/lib/data";
 import { Auxilary } from "@/app/lib/definitions";
-import { GoogleGenerativeAI } from "@google/generative-ai";
 import { sql } from "@vercel/postgres";
-import { conversation as convo } from "@/app/lib/data";
 import { getCurrentTimestamp } from "@/app/lib/util";
 import { createConversation, fetchChatResponseFromModel } from "@/app/lib/server-data";
 
@@ -11,22 +9,23 @@ import { createConversation, fetchChatResponseFromModel } from "@/app/lib/server
 export async function POST(request: Request) {
   // Get the message prompt from the user
   const {
+    userId,
     message,
     contextHistory,
-  }: { message: string; contextHistory: Auxilary[] } = await request.json();
+  }: { userId: string, message: string; contextHistory: Auxilary[] } = await request.json();
   const userTimestamp = getCurrentTimestamp();
   // TODO
-  // 1. Check if the user is authenticated if yes get his user_id
-  // 2. create a conversation in the database with the associated user_id and get the conversation id
-  // 3. Store messages in the server with the conversation_id
-  // 4. Return the conversation_id along with the conversation response from the model
-  // 5. IN CLIENT: update the URL to reflect the latest conversation
+  // 1. create a conversation in the database with the associated user_id and get the conversation id
+  // 2. Store messages in the server with the conversation_id
+  // 3. Return the conversation_id along with the conversation response from the model
+  // 4. IN CLIENT: update the URL to reflect the latest conversation
 
 
   const text = await fetchChatResponseFromModel([...conversationHistory, ...contextHistory], message);
   const modelTimestamp = getCurrentTimestamp();
 
-  const conversation = await createConversation(convo.user_id, text);
+  // Create a conversation in the database with the associated user_id and get the conversation
+  const conversation = await createConversation(userId, text);
 
   const insertedRows = await sql`
     INSERT INTO messages (conversation_id, role, message, generated_timestamp) 

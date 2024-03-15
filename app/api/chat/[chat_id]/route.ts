@@ -13,9 +13,10 @@ export async function GET(request: Request, { params }: { params: { chat_id: str
 export async function POST(request: Request, { params }: { params: { chat_id: string }}) {
   const conversationId = params.chat_id;
   const {
+    userId,
     message,
     contextHistory,
-  }: { message: string; contextHistory: Auxilary[] } = await request.json();
+  }: { userId: string, message: string; contextHistory: Auxilary[] } = await request.json();
   const userTimestamp = getCurrentTimestamp();
 
   const text = await fetchChatResponseFromModel([...conversationHistory, ...contextHistory], message);  

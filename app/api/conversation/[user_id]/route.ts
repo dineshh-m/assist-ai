@@ -1,6 +1,7 @@
 import { sql } from "@vercel/postgres";
+import { type NextRequest } from "next/server";
 
-export async function GET(request: Request, { params }: { params: { user_id: string }}) {
+export async function GET(request: NextRequest, { params }: { params: { user_id: string }}) {
     const userId = params.user_id;
     const result = await sql`
         SELECT * FROM conversations 

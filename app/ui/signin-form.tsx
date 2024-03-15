@@ -3,11 +3,15 @@ import { Label } from "@/app/ui/label";
 import { Input } from "@/app/ui/input";
 import { cn } from "@/app/ui/cn";
 import { TextGenerateEffect } from "@/app/ui/text-generate-effect";
+import { authenticate } from "@/app/lib/actions";
+import { useFormState } from "react-dom";
 
 const words =
   "Your Virtual Gateway to Seamless Interaction, Efficient Services, and Informed Governance";
 
 export default function SigninForm() {
+  const [state, dispatch] = useFormState(authenticate, null);
+
   return (
     <div className="max-w-md w-full mx-auto mt-28 rounded-none md:rounded-2xl p-4 md:p-8 bg-white shadow-xl">
       <h2 className="font-bold text-xl text-neutral-800 ">
@@ -19,19 +23,19 @@ export default function SigninForm() {
         <TextGenerateEffect words={words} />
       </div>
 
-      <form className="my-8">
+      <form action={dispatch} className="my-8">
         <LabelInputContainer className="mb-4 ">
           <span className="font-bold text-xl text-neutral-800 ">
             Email Address
           </span>
           <Label htmlFor="email" className=""></Label>
-          <Input id="email" placeholder="example123@gmail.com" type="email" />
+          <Input name="email" id="email" placeholder="example123@gmail.com" type="email" />
         </LabelInputContainer>
 
         <LabelInputContainer className="mb-4 ">
           <span className="font-bold text-xl text-neutral-800 ">Password</span>
           <Label htmlFor="password"></Label>
-          <Input id="password" placeholder="••••••••" type="password" />
+          <Input name="password" id="password" placeholder="••••••••" type="password" />
         </LabelInputContainer>
 
         <button
@@ -43,11 +47,12 @@ export default function SigninForm() {
         </button>
         <p className="text-gray-500 text-center">
           New to AssistAI?{" "}
-          <a className="text-blue-400 hover:underline" href="/signup">
+          <a className="text-blue-400 underline" href="/signup">
             Create an account
           </a>{" "}
         </p>
       </form>
+      {state && <div>{state}</div>}
     </div>
   );
 }

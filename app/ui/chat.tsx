@@ -7,12 +7,14 @@ import { Message } from "../lib/definitions";
 import { fetchChatHistory } from "../lib/client-data";
 import Spinner from "./loading";
 
-export default function Chat({ conversationId }: { conversationId: string}) {
+export default function Chat({ userId, conversationId }: { userId: string, conversationId: string}) {
+
     const [ messages, setMessages] = useState<Message[]>([]); // Storing the actual conversation
     const [ prompt, setPrompt ] = useState('');
     const [isGenerating, setIsGenerating] = useState(false); // for disabling the send button when the content is generating.
     const [conversationID, setConversationID] = useState(conversationId);
     const chatContainerRef = useRef<HTMLDivElement>(null); 
+    // For keeping the scroll bar bottom
     useEffect(() => {
         if (chatContainerRef.current) {
             chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
@@ -46,7 +48,7 @@ export default function Chat({ conversationId }: { conversationId: string}) {
           { id: generateUniqueId(), role: "model", message: "", content: { role: "model", parts: [{ text: ""}]}},
         ]);
         // Fetching data
-        const data = await fetchChatResponse(conversationID, prompt, messages);
+        const data = await fetchChatResponse(userId, conversationID, prompt, messages);
         // Applying the returned response to the chat
         setMessages((messages) => {
           const finalMessages = [...messages];

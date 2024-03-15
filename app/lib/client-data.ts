@@ -16,7 +16,7 @@ export async function fetchChatHistory(conversationId: string) {
   }
 }
 
-export async function fetchChatResponse(conversationId: string, prompt: string, messages: Message[]) {
+export async function fetchChatResponse(userId: string, conversationId: string, prompt: string, messages: Message[]) {
   const url = `/api/chat/${conversationId}`;
   const contextHistory = convertAuxilary(messages);
   const response = await fetch(url, {
@@ -24,7 +24,7 @@ export async function fetchChatResponse(conversationId: string, prompt: string, 
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ message: prompt, contextHistory: contextHistory }),
+    body: JSON.stringify({ userId, message: prompt, contextHistory: contextHistory }),
   });
   const data = await response.json();
   return data;

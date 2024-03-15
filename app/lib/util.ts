@@ -3,3 +3,9 @@ export function getCurrentTimestamp(): string {
   return date.toISOString().replace('T', ' ').replace('Z', '');
 }
 
+export function getAuthSecretKey(): string {
+  if (process.env.AUTH_SECRET) {
+    return process.env.AUTH_SECRET;
+  }
+  return "";
+}

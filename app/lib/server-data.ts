@@ -3,6 +3,7 @@ import { MODEL_NAME } from "./gen-ai.config";
 import { generationConfig, safetySettings } from "./gen-ai.config";
 import { Auxilary } from "./definitions";
 import { sql } from "@vercel/postgres";
+import bcrypt from "bcrypt";
 
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GEN_AI_KEY || "");
 const model = genAI.getGenerativeModel({ model: MODEL_NAME});
@@ -49,11 +50,43 @@ export async function getUser(email: any) {
     if (result.rows.length > 0) {
         const row = result.rows[0];
         const user = {
-            userId: row.id,
-            userEmail: row.user_email,
-            userPassword: row.user_password,
+            id: row.id,
+            email: row.user_email,
+            password: row.user_password,
         }
         return user;
     }
     return null;
+}
+
+export async function createUser({username, email, password}: {username: string, email: string, password: string}) {
+    try {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        await sql`
+            INSERT INTO users (user_name, user_email, user_password) 
+            VALUES(${username}, ${email}, ${hashedPassword})
+            ;
+        `;
+    }catch(error) {
+        console.log(error);
+        return false;
+    }
+    return true;
+}
+
+export async function getConversationHistory(userId: string) {
+    const result = await sql`
+        SELECT * FROM conversations 
+            WHERE user_id=${userId}; 
+    `;
+    const history = [];
+    for (const row of result.rows) {
+        const convo = {
+            id: row.id,
+            title: row.conversation_name,
+        };
+        history.push(convo);
+    }
+    history.reverse();
+    return history;
 }

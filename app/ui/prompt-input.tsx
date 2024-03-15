@@ -27,9 +27,9 @@ export default function PromptInput({
           />
           <button
             id="send-btn"
-            className="p-2 m-1 rounded-full bg-black text-white hover:bg-gray-500 transition-colors ease-linear duration-75 shadow-md disabled:bg-gray-500"
+            className="p-2 m-1 rounded-full text-black transition-colors ease-linear duration-75 disabled:text-gray-500"
             onClick={handleClick}
-            disabled={isGenerating}
+            disabled={!prompt || isGenerating}
           >
             <PaperAirplaneIcon className="w-6" />
           </button>
