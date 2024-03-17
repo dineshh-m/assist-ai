@@ -12,13 +12,13 @@ export default async function Sidebar({ userId }: { userId: string }) {
   // }, []);
 
   return (
-    <div className="w-full h-full bg-gray-50 shadow-sm">
+    <div className="w-full h-full bg-gray-50 shadow-sm hidden lg:block">
       <div className="w-full flex justify-center mt-4">
         <Link
           className="border-solid border-gray-400 border-[1px]  rounded-full w-full mx-2 py-1 text-center"
-          href="/chat"
+          href="/chat/"
         >
-          New Thread
+          New Thread<span className="text-xl">+</span>
         </Link>
       </div>
       <div className="w-full h-full px-3 py-2 flex flex-col items-start gap-3 text-sm overflow-y-auto no-scrollbar">

@@ -3,6 +3,7 @@ import { Auxilary } from "@/app/lib/definitions";
 import { sql } from "@vercel/postgres";
 import { getCurrentTimestamp } from "@/app/lib/util";
 import { createConversation, fetchChatResponseFromModel } from "@/app/lib/server-data";
+import { revalidatePath } from "next/cache";
 
 
 // This function is called for new conversation history creeation
@@ -40,6 +41,5 @@ export async function POST(request: Request) {
     conversationId: conversation.conversation_id,
     message: text,
   }
-
   return Response.json(response);
 }

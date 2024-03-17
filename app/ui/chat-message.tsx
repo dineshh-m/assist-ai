@@ -5,7 +5,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 
 export default function ChatMessage({ message }: { message: Message }) {
   return (
-    <div className="mx-[10rem]">
+    <div className="mx-[5rem] lg:mx-[10rem]">
       <div className="flex flex-col justify-start gap-1">
         <div className="font-bold first-letter:uppercase">{message.content.role}</div>
         {message.content.role == "model" ? (

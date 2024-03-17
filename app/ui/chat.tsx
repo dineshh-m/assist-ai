@@ -6,14 +6,16 @@ import { useEffect, useRef, useState } from "react";
 import { Message } from "../lib/definitions";
 import { fetchChatHistory } from "../lib/client-data";
 import Spinner from "./loading";
+import { useRouter } from "next/navigation";
 
 export default function Chat({ userId, conversationId }: { userId: string, conversationId: string}) {
 
     const [ messages, setMessages] = useState<Message[]>([]); // Storing the actual conversation
     const [ prompt, setPrompt ] = useState('');
     const [isGenerating, setIsGenerating] = useState(false); // for disabling the send button when the content is generating.
-    const [conversationID, setConversationID] = useState(conversationId);
+    const [conversationID, setConversationID] = useState<string>(conversationId);
     const chatContainerRef = useRef<HTMLDivElement>(null); 
+    const router = useRouter();
     // For keeping the scroll bar bottom
     useEffect(() => {
         if (chatContainerRef.current) {
@@ -23,13 +25,16 @@ export default function Chat({ userId, conversationId }: { userId: string, conve
 
     useEffect(() => {
       const fetchData = async () => {
-        const chatHistory = await fetchChatHistory(conversationID);
-        setMessages(chatHistory.chatHistory);
+        const response = await fetchChatHistory(conversationID);
+        setMessages(response.chatHistory);
       };
-      if (conversationID) {
+
+      if (conversationID !== "") {
         fetchData();
       }
-    }, [])
+    }, [conversationID]);
+    console.log("messages", messages);
+    console.log("conversation id", conversationID);
 
     const handleClick = async () => {
       // Checking whether the prompt is empty
@@ -62,7 +67,7 @@ export default function Chat({ userId, conversationId }: { userId: string, conve
         setIsGenerating(false);
         if (!conversationID) {
           setConversationID(data.conversationId);
-          history.pushState(null, "", `/chat/${data.conversationId}`);
+          router.push(`/chat/${data.conversationId}`);
         }
       }
     };
