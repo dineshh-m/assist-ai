@@ -86,7 +86,7 @@ export default function Chat({ userId, conversationId }: { userId: string, conve
         {conversationID && !messages.length ? (
           <Spinner />
         ) : (
-          <div className="pb-[6rem] w-full h-full overflow-y-hidden">
+          <div className="pb-[6rem] w-full h-full overflow-y-hidden z-50">
             <ChatList messages={messages} chatContainerRef={chatContainerRef} />
           </div>
         )}
