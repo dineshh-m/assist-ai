@@ -50,15 +50,17 @@ export default function MobileSidebar({
             </svg>
           </button>
         </div>
-        <div className="w-full h-full px-3 py-2 flex flex-col items-start gap-3 text-sm overflow-y-scroll no-scrollbar">
-          {!history.length ? (
+        {!history.length ? (
+          <div className="h-screen">
             <Spinner />
-          ) : (
-            history.map((messageInfo: any) => (
+          </div>
+        ) : (
+          <div className="w-full h-full px-3 py-2 flex flex-col items-start gap-3 text-sm overflow-y-scroll no-scrollbar">
+            {history.map((messageInfo: any) => (
               <ChatMessageInfo key={messageInfo.id} messageInfo={messageInfo} />
-            ))
-          )}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     );
 }
