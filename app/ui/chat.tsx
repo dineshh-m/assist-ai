@@ -7,13 +7,15 @@ import { Message } from "../lib/definitions";
 import { fetchChatHistory } from "../lib/client-data";
 import Spinner from "./loading";
 import { useRouter } from "next/navigation";
+import MobileSidebar from "./mobile-sidebar";
 
-export default function Chat({ userId, conversationId }: { userId: string, conversationId: string}) {
+export default function Chat({ userId, conversationId }: { userId: string, conversationId: string }) {
 
     const [ messages, setMessages] = useState<Message[]>([]); // Storing the actual conversation
     const [ prompt, setPrompt ] = useState('');
     const [isGenerating, setIsGenerating] = useState(false); // for disabling the send button when the content is generating.
     const [conversationID, setConversationID] = useState<string>(conversationId);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const chatContainerRef = useRef<HTMLDivElement>(null); 
     const router = useRouter();
     // For keeping the scroll bar bottom
@@ -29,12 +31,10 @@ export default function Chat({ userId, conversationId }: { userId: string, conve
         setMessages(response.chatHistory);
       };
 
-      if (conversationID !== "") {
+      if (conversationID) {
         fetchData();
       }
     }, [conversationID]);
-    console.log("messages", messages);
-    console.log("conversation id", conversationID);
 
     const handleClick = async () => {
       // Checking whether the prompt is empty
@@ -72,6 +72,11 @@ export default function Chat({ userId, conversationId }: { userId: string, conve
       }
     };
 
+    const toggleSidebar = () => {
+      console.log("clicked");
+      setIsSidebarOpen(!isSidebarOpen);
+    }
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPrompt(e.target.value);
     }
@@ -83,10 +88,34 @@ export default function Chat({ userId, conversationId }: { userId: string, conve
     }
     return (
       <>
+        <div className="px-2 py-3">
+          <div className={`sidebar w-3/5 fixed top-0 left-0 z-20 ${isSidebarOpen ? 'block' : 'hidden'}`}>
+            {isSidebarOpen && <MobileSidebar userId={userId} toggleSidebar={setIsSidebarOpen} />}
+          </div>
+          <div className="flex gap-3 relative">
+            <button className="inline lg:hidden" onClick={toggleSidebar}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                />
+              </svg>
+            </button>
+            <h1 className="font-semibold text-lg">AssistAI</h1>
+          </div>
+        </div>
         {conversationID && !messages.length ? (
           <Spinner />
         ) : (
-          <div className="pb-[6rem] w-full h-full overflow-y-hidden z-50">
+          <div className="pb-[8rem] w-full h-full overflow-y-hidden z-10">
             <ChatList messages={messages} chatContainerRef={chatContainerRef} />
           </div>
         )}

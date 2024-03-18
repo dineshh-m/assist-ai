@@ -16,7 +16,7 @@ export default function PromptInput({
   return (
     <div className="flex justify-center">
       <div className="fixed bottom-6">
-        <div className="flex items-center w-[20rem] sm:w-[40rem] h-[3rem] pl-3 rounded-full bg-gray-100 shadow-md">
+        <div className="flex items-center w-[20rem] sm:w-[40rem]  pl-3 rounded-full bg-gray-100 shadow-md">
           <input
             type="text"
             placeholder="Type Something..."

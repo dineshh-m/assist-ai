@@ -15,10 +15,10 @@ export default async function Sidebar({ userId }: { userId: string }) {
     <div className="w-full h-full bg-gray-50 shadow-sm hidden lg:block">
       <div className="w-full flex justify-center mt-4">
         <Link
-          className="border-solid border-gray-400 border-[1px]  rounded-full w-full mx-2 py-1 text-center"
+          className="border-solid border-gray-400 border-[1px]  rounded-full w-full mx-2 py-1 text-center flex justify-center"
           href="/chat/"
         >
-          New Thread<span className="text-xl">+</span>
+          New Thread
         </Link>
       </div>
       <div className="w-full h-full px-3 py-2 flex flex-col items-start gap-3 text-sm overflow-y-auto no-scrollbar">

@@ -1,5 +1,5 @@
 import { jwtVerify } from 'jose';
-import { cookies, headers } from 'next/headers';
+import { cookies } from 'next/headers';
 import { NextResponse, NextRequest } from 'next/server';
 import { getAuthSecretKey } from './app/lib/util';
  
@@ -9,8 +9,11 @@ export const config = {
 };
 
 export async function middleware(request: NextRequest) {
+  // Get the auth_token header cookie
   const authToken = cookies().get('auth_token');
+  // If url path start with chat check if the user is authenticated
   if (request.nextUrl.pathname.startsWith('/chat')) {
+    // verify jwt if already authenticated
     if (authToken && process.env.AUTH_SECRET) {
       try {
         const token = await jwtVerify(
@@ -18,7 +21,9 @@ export async function middleware(request: NextRequest) {
           new TextEncoder().encode(getAuthSecretKey())
         );
         const headers = new Headers(request.headers);
+        // Custom header
         headers.set('x-user-id', String(token.payload.userId));
+        // proceed request processing if jwt is verified
         return NextResponse.next({
           headers: headers
         });
@@ -27,9 +32,7 @@ export async function middleware(request: NextRequest) {
         throw new Error('Server error occured');
       }
     }
+    // Redirect to signin if user is not authenticated
     return NextResponse.redirect(new URL("/signin", request.url));
   }
 }
-
-// const url = new URL('https://localhost:3000/dashbaord/invoices');
-// const x = new URL('/dashboard', url);
