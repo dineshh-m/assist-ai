@@ -31,7 +31,7 @@ export default function MobileSidebar({
             className="border-solid border-gray-400 border-[1px]  rounded-full w-full mx-2 py-1 text-center"
             href="/chat/"
           >
-            New Thread<span className="text-xl">+</span>
+            New Thread
           </Link>
           <button onClick={handleCloseClick}>
             <svg
