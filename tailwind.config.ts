@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      icon: {
+        head: "https://cdn-icons-png.flaticon.com/512/5968/5968204.png",
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
