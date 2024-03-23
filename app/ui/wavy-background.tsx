@@ -116,13 +116,13 @@ export const WavyBackground = ({
         containerClassName
       )}>
       <canvas
-        className="relative inset-0 z-0"
+        className=" inset-0 z-0"
         ref={canvasRef}
         id="canvas"
         style={{
           ...(isSafari ? { filter: `blur(${blur}px)` } : {}),
         }}></canvas>
-      <div className={cn("relative z-10", className)} {...props}>
+      <div className={cn("absolute z-10", className)} {...props}>
         {children}
       </div>
     </div>

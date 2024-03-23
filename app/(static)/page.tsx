@@ -17,7 +17,9 @@ import Navbar from "../ui/navbar";
 export default function Home() {
   return (
     <>
-      <WavyBackground />
+      <WavyBackground className=" ">
+        <TypewriterEffect words={words} />
+      </WavyBackground>
     </>
   );
 }

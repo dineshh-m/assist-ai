@@ -6,7 +6,7 @@ import { useState } from "react";
 export default function Navbar() {
   return (
     <>
-      <div className="border-b-[1px] shadow-lg shadow-gray-500/5  font-sans">
+      <div className="border-b-[1px] shadow-sm   font-sans">
         <div className="w-full mx-auto px-4">
           <div className="flex justify-between">
             <div className="flex space-x-4 ">
@@ -86,12 +86,26 @@ export default function Navbar() {
           </div>
         </div>
 
-        <div className="mobile-menu hidden md:hidden">
-          <Link href="#" className="block py-2 px-4 text-sm hover:bg-gray-200">
-            Features
+        <div className="mobile-menu hidden  md:hidden">
+          <Link
+            href="#"
+            className="block py-4 mx-4 font-medium px-4 text-sm hover:bg-gray-200">
+            Home
           </Link>
-          <Link href="#" className="block py-2 px-4 text-sm hover:bg-gray-200">
-            Pricing
+          <Link
+            href="#"
+            className="block py-4 mx-4 font-medium px-4 text-sm hover:bg-gray-200">
+            Explore
+          </Link>
+          <Link
+            href="#"
+            className="block py-4 mx-4 font-medium px-4 text-sm hover:bg-gray-200">
+            Learn
+          </Link>
+          <Link
+            href="#"
+            className="block py-4 mx-4 font-medium px-4 text-sm hover:bg-gray-200">
+            Help
           </Link>
         </div>
       </div>
