@@ -4,6 +4,15 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function Navbar() {
+  const [hidden, setHidden] = useState("hidden");
+  const handleClick = () => {
+    if (hidden === "hidden") {
+      setHidden("");
+      return;
+    }
+    setHidden("hidden");
+  };
+
   return (
     <>
       <div className="border-b-[1px] shadow-sm   font-sans">
@@ -54,6 +63,7 @@ export default function Navbar() {
                 Signup
               </Link>
             </div>
+
             {/* mobile screen */}
             <div className="md:hidden flex gap-4 items-center">
               <Link
@@ -66,7 +76,7 @@ export default function Navbar() {
                 className="py-2 px-3 bg-[#F0F2F5] font-bold  rounded-lg">
                 Signup
               </Link>
-              <button className="mobile-menu-button">
+              <button className="mobile-menu-button  " onClick={handleClick}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -86,7 +96,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        <div className="mobile-menu hidden  md:hidden">
+        <div className={`mobile-menu ${hidden} md:hidden `}>
           <Link
             href="#"
             className="block py-4 mx-4 font-medium px-4 text-sm hover:bg-gray-200">
