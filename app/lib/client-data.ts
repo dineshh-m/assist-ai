@@ -11,7 +11,6 @@ export async function fetchChatHistory(conversationId: string) {
     const chatHistory = await response.json();
     return chatHistory;
   } catch (error) {
-    console.log(error);
     throw new Error('Failed to fetch chat history');
   }
 }

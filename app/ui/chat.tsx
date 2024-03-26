@@ -73,7 +73,6 @@ export default function Chat({ userId, conversationId }: { userId: string, conve
     };
 
     const toggleSidebar = () => {
-      console.log("clicked");
       setIsSidebarOpen(!isSidebarOpen);
     }
 

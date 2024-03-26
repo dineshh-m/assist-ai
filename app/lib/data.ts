@@ -119,11 +119,9 @@ export async function fetchChatHistory(conversationId: string): Promise<Foo> {
         },
       };
       chatHistory.push(convo);
-      console.log(convo);
     }
     return { chatHistory }
   }catch(error) {
-    console.log(error);
     throw new Error('Failed to fetch Chat history');
   }
 }

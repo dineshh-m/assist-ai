@@ -68,7 +68,6 @@ export async function createUser({username, email, password}: {username: string,
             ;
         `;
     }catch(error) {
-        console.log(error);
         return false;
     }
     return true;
