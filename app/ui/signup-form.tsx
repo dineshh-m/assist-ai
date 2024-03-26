@@ -6,6 +6,8 @@ import { cn } from "@/app/ui/cn";
 import { TextGenerateEffect } from "@/app/ui/text-generate-effect";
 import { useFormState } from "react-dom";
 import { register } from "../lib/actions";
+import SignupSubmit from "./signup-submit";
+import AuthMessage from "./auth-message";
 const words =
   "Your Virtual Gateway to Seamless Interaction, Efficient Services, and Informed Governance";
 
@@ -62,13 +64,7 @@ export default function SignupForm() {
           <Input name="confirmpassword" id="password1" placeholder="••••••••" type="password" />
         </LabelInputContainer>
 
-        <button
-          className="my-10 bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-          type="submit"
-        >
-          Register &rarr;
-          <BottomGradient />
-        </button>
+        <SignupSubmit />
         <p className="text-gray-500 text-center">
           Already have an account?{" "}
           <a className="text-blue-400 underline" href="/signin">
@@ -77,7 +73,7 @@ export default function SignupForm() {
           here
         </p>
       </form>
-      {state && <div>{state}</div>}
+      {state && <AuthMessage state={state} />}
     </div>
   );
 }

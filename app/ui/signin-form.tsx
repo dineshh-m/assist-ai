@@ -5,6 +5,8 @@ import { cn } from "@/app/ui/cn";
 import { TextGenerateEffect } from "@/app/ui/text-generate-effect";
 import { authenticate } from "@/app/lib/actions";
 import { useFormState } from "react-dom";
+import SigninSubmit from "./signin-submit";
+import AuthMessage from "./auth-message";
 
 const words =
   "Your Virtual Gateway to Seamless Interaction, Efficient Services, and Informed Governance";
@@ -29,30 +31,35 @@ export default function SigninForm() {
             Email Address
           </span>
           <Label htmlFor="email" className=""></Label>
-          <Input name="email" id="email" placeholder="example123@gmail.com" type="email" />
+          <Input
+            name="email"
+            id="email"
+            placeholder="example123@gmail.com"
+            type="email"
+          />
         </LabelInputContainer>
 
         <LabelInputContainer className="mb-4 ">
           <span className="font-bold text-xl text-neutral-800 ">Password</span>
           <Label htmlFor="password"></Label>
-          <Input name="password" id="password" placeholder="••••••••" type="password" />
+          <Input
+            name="password"
+            id="password"
+            placeholder="••••••••"
+            type="password"
+          />
         </LabelInputContainer>
 
-        <button
-          className="my-10 bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-          type="submit"
-        >
-          Log in &rarr;
-          <BottomGradient />
-        </button>
+        <SigninSubmit />
         <p className="text-gray-500 text-center">
           New to AssistAI?{" "}
           <a className="text-blue-400 underline" href="/signup">
             Create an account
           </a>{" "}
         </p>
+
+        {state && <AuthMessage state={state} />}
       </form>
-      {state && <div>{state}</div>}
     </div>
   );
 }
