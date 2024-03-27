@@ -38,7 +38,6 @@ export async function fetchHistory(userId: string) {
     }
   });
   const data = await response.json();
-  data.history.reverse();
   return data.history;
 }
 

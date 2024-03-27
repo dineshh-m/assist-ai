@@ -41,5 +41,6 @@ export async function POST(request: Request) {
     conversationId: conversation.conversation_id,
     message: text,
   }
+  revalidatePath(`/api/conversation/${userId}`);
   return Response.json(response);
 }

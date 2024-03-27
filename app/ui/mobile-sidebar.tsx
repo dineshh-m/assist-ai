@@ -25,7 +25,7 @@ export default function MobileSidebar({
         toggleSidebar(false);
     }
     return (
-      <div className="w-full h-full py-3 px-2 relative -left-full bg-gray-50 shadow-sm transition-all duration-1000 ease-in translate-x-full">
+      <div className="w-full h-screen py-3 px-2 relative -left-full bg-gray-50 shadow-sm transition-all duration-1000 ease-in translate-x-full">
         <div className="w-full flex justify-center">
           <Link
             className="border-solid border-gray-400 border-[1px]  rounded-full w-full mx-2 py-1 text-center"

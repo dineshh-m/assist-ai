@@ -15,5 +15,6 @@ export async function GET(request: NextRequest, { params }: { params: { user_id:
         };
         history.push(convo);
     }
+    history.reverse();
     return Response.json({ history });
 }
